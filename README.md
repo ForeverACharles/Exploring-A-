@@ -23,7 +23,8 @@ For each move the agent makes, it computes a path in preference of cells that mo
 **Running the program**
 
 Requirements:
-- *python*
+- python
+- *colorama* for python `pip install colorama`
 - some of your time
 
 Run with:
