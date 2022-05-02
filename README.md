@@ -18,7 +18,7 @@ f(s) = g(s) + h(s)
 
 For each move the agent makes, it computes a path in preference of cells that moves it furthest away from it current position g(s) and cells that are closest to the target position h(s) via Manhattan Distance calculation.
 
-#Running the program
+##Running the program
 Requirements:
 - python
 - some of your time
