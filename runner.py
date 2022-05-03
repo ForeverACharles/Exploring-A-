@@ -23,8 +23,7 @@ def main():
     stop = timeit.default_timer()
     print('Grid Generation Runtime: ' + str(round(stop - start, 5)) + " seconds")
 
-    print_all_grids(grids)
-
+    #print_all_grids(grids)
     reports = []
 
     #count report lists. list index 0 is higher G values, index 1 is lower. Each list is: [steps, expansions, time]
@@ -37,7 +36,7 @@ def main():
     for grid in grids:
         #note: positions are stored in row-column ordered coordinates
         agent_pos, target_pos = get_position('A', grid), get_position('T', grid)
-        #print_grid(grid, num)
+        print_grid(grid, num)
 
         selection = [1, 1, 1, 1]
         run_astar(grid, agent_pos, target_pos,selection, reports, counts)
@@ -147,8 +146,10 @@ def print_grid(grid, i):
             cell = grid[y][x]
             if cell == 1: 
                 print(f"{Fore.BLACK}{Back.BLACK}[ ]" + f"{Style.RESET_ALL}", end="")
-            elif cell == 'A' or cell == 'T':
-                print(f"{Fore.BLACK}{Back.WHITE}[" + str(cell) + "]" + f"{Style.RESET_ALL}", end="")
+            elif cell == 'A':
+                print(f"{Fore.WHITE}{Back.RED}[" + str(cell) + "]" + f"{Style.RESET_ALL}", end="")
+            elif cell == 'T':
+                print(f"{Fore.WHITE}{Back.BLUE}[" + str(cell) + "]" + f"{Style.RESET_ALL}", end="")
             else:
                 print(f"{Fore.WHITE}{Back.WHITE}[ ]" + f"{Style.RESET_ALL}", end="")
         print(" " + str(y))
