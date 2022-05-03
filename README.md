@@ -3,7 +3,7 @@ This is a repo condensing my contributions to https://github.com/Nicholas-Schenk
 # Exploring A* Search Algorithm
 A* is a search algorithm used for path-finding.
 
-https://user-images.githubusercontent.com/50348516/166404233-2675ef90-1e01-4a2d-b1b6-555515436c04.mp4
+https://user-images.githubusercontent.com/50348516/166404378-87df4a61-eae2-4638-a9be-b11a5e3ca2aa.mp4
 
 A* search alogirthm has been implemented in 3 flavors: 
 - Repeated Forward A*
