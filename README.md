@@ -34,7 +34,7 @@ Upon execution, the program will run each algorithm and its variations. Each gen
 
 ### *Agent Performance*
 
-The Agent is always assumed to be blind. It can only observe 1 cell in each direction at any given time. However it is capable of remembering the state of the grid observed thus far. The agent will rarely find the exact shortest path to the Target because the A* search algorithm as implemented under these conditons is inherently at the mercy of the agents "vision" contraints. 
+The Agent is always assumed to be blind. It can only observe 1 cell in each direction at any given time. However it is capable of remembering the state of the grid observed thus far. The agent will rarely find the exact shortest path to the Target because the A* search algorithm as implemented under these conditons is inherently at the mercy of the Agent's "vision" contraints. 
 
 If the Agent had access to the entire grid at all times, then the bottleneck would fall onto the heuristic A* makes use of. In this case, that would be the Manhattan Distance. In this environment this heuristic can never overestimate the distance between the Agent and the Target. Therefore, the Agent would always be able to consistenly find the shortest path every time.
 
