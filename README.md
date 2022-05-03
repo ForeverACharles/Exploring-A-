@@ -23,17 +23,17 @@ After a path is computed the Agent moves along that path until it either reaches
 
 ## Technical Details
 
-### *Grid Generation*
+#### *Grid Generation*
 
 By default, the program randomly generates a square grid of size *n*. The grid is initially empty, but is later populated with an Agent and Target destination cell. Grid generations makes use of Depth First Search to then fill the grid with blocking cells using random probability, which do not allow the Agent to pass through. 
 
-### *Program Execution*
+#### *Program Execution*
 
 Within the 3 different algorithms, the program runs two variations of Repeated Forward A*, the only difference between these two is how the algorithm handles tie-breaking when competing cell states share equal decision cost *f(s)*. In all variations of A*, a minimum heap is used to prioritize which cell the Agent should add to its computed path. When decision costs are equal in the aforementioned scenario, we use *g(s)* to break the tie. The default configuration is for higher *g(s)* values to be prefered.
 
 Upon execution, the program will run each algorithm and its variations. Each generated grid with its corresponding Agent will display. On completion, the program will output statistical data such as runtime and steps to reach the target for comparison.
 
-### *Agent Performance*
+#### *Agent Performance*
 
 The Agent is always assumed to be blind. It can only observe 1 cell in each direction at any given time. However it is capable of remembering the state of the grid observed thus far. The agent will rarely find the exact shortest path to the Target because the A* search algorithm as implemented under these conditons is inherently at the mercy of the Agent's "vision" contraints. 
 
@@ -51,7 +51,7 @@ Run with:
 
 ## Changelog
 
-Original log
+Original log est. Oct 2021
 >Generate.py should solve part 0.
 
 >Currently generate.py has a main method that I was using for testing it. Obviously, though, in the actual code we will be importing the file and using the function generate, so we will need to get rid it then.
