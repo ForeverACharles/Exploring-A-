@@ -19,6 +19,7 @@ The cost of exploring a cell in the grid given its current state *s* can be deno
 
 For each move the agent makes, it computes a path in preference of cells that moves the agent furthest away from the its current position *g(s)* and cells that are closest to the target position *h(s)* via Manhattan Distance calculation.
 
+After a path is computed the Agent moves along that path until it either reaches the Target destination or is blocked by a cell. In the latter scenario, the Agent should retrace it steps back to a state where it is no longer blocked and able to recompute a new path to the Target.
 
 ## Technical Details
 
