@@ -1,9 +1,12 @@
+from asyncio import FIRST_COMPLETED
 from os import get_inheritable
+from pickle import TRUE
 from colorama import Fore, Back, Style
 #import heapq as hq
 from BinaryHeap import BinaryHeap
 import random
 import os
+import sys
 
 from State import State
 
@@ -28,6 +31,7 @@ def set_agent_grid(agent_grid, grid, agent_state, target_state):
 
 #implementation of repeated forward A*
 def forward_astar(grid, agent_pos, target_pos, size, g_tie_breaker):
+    #os.system('cls')
 
     agent_state = State(agent_pos)
     agent_state.f_value = get_f_value(agent_pos, agent_pos, target_pos)
@@ -36,6 +40,7 @@ def forward_astar(grid, agent_pos, target_pos, size, g_tie_breaker):
     global GRID_SIZE
     global GRID
     global COUNTER
+    FIRST_PRINT = True
     
     GRID_SIZE = size
     GRID = [[0] * GRID_SIZE for i in range(GRID_SIZE)]
@@ -80,7 +85,6 @@ def forward_astar(grid, agent_pos, target_pos, size, g_tie_breaker):
                 GRID = set_agent_grid(GRID, grid, agent_state, target_state)
                 x, y = current.pos
                 path_grid[x][y] = '*'
-                print_grid(GRID, agent_state, target_state.pos)
             else:
                 x = 0
                 y = 0
@@ -100,8 +104,11 @@ def forward_astar(grid, agent_pos, target_pos, size, g_tie_breaker):
                 agent_state.pos = current.prev.pos
                 current.prev = current.prev.prev
                 GRID = set_agent_grid(GRID, grid, agent_state, target_state)
+
+            FIRST_PRINT = print_grid(GRID, agent_state, target_state.pos, FIRST_PRINT)
     
     #get_path_grid(path_grid, grid, agent_pos, target_pos)
+    FIRST_PRINT = True
     return [COUNTER, EXPANSIONS]
 
 #get shortest path for what the agent observes in its current grid
@@ -149,6 +156,7 @@ def determine_path(agent_state, target_state, order, open_list, closed_list, g_t
     return expansions
     
 def backward_astar(grid, agent_pos, target_pos, size, g_tie_breaker):
+    #os.system('cls')
 
     agent_state = State(agent_pos)
     agent_state.f_value = get_f_value(agent_pos, agent_pos, target_pos)
@@ -158,6 +166,7 @@ def backward_astar(grid, agent_pos, target_pos, size, g_tie_breaker):
     global GRID_SIZE
     global GRID
     global COUNTER
+    FIRST_PRINT = True
     
     GRID_SIZE = size
     GRID = [[0] * GRID_SIZE for i in range(GRID_SIZE)]
@@ -204,9 +213,10 @@ def backward_astar(grid, agent_pos, target_pos, size, g_tie_breaker):
             
             GRID = set_agent_grid(GRID, grid, agent_state, target_state)
             next_state = next_state.prev
-            print_grid(GRID, agent_state, target_state.pos)
+            FIRST_PRINT = print_grid(GRID, agent_state, target_state.pos, FIRST_PRINT)
             
     #get_path_grid(path_grid, grid, agent_pos, target_pos)
+    FIRST_PRINT = True
     return [COUNTER, EXPANSIONS]
     
 def backward_determine_path(agent_state, target_state, order, open_list, closed_list, g_tie_breaker, expansions):
@@ -265,6 +275,8 @@ def adaptive_set_heuristic(agent_state):
     return heuristic_grid
 
 def adaptive_astar(grid, agent_pos, target_pos, size, g_tie_breaker):
+    #os.system('cls')
+
     agent_state = State(agent_pos)
     agent_state.f_value = get_f_value(agent_pos, agent_pos, target_pos)
     target_state = State(target_pos)
@@ -272,6 +284,7 @@ def adaptive_astar(grid, agent_pos, target_pos, size, g_tie_breaker):
     global GRID_SIZE
     global GRID
     global COUNTER
+    FIRST_PRINT = True
     
     GRID_SIZE = size
     GRID = [[0] * GRID_SIZE for i in range(GRID_SIZE)]
@@ -317,7 +330,7 @@ def adaptive_astar(grid, agent_pos, target_pos, size, g_tie_breaker):
                 GRID = set_agent_grid(GRID, grid, agent_state, target_state)
                 x, y = current.pos
                 path_grid[x][y] = '*'
-                print_grid(GRID, agent_state, target_state.pos)
+               
             else:
                 x = 0
                 y = 0
@@ -337,8 +350,11 @@ def adaptive_astar(grid, agent_pos, target_pos, size, g_tie_breaker):
                 agent_state.pos = current.prev.pos
                 current.prev = current.prev.prev
                 GRID = set_agent_grid(GRID, grid, agent_state, target_state)
+
+            FIRST_PRINT = print_grid(GRID, agent_state, target_state.pos, FIRST_PRINT)
     
     #get_path_grid(path_grid, grid, agent_pos, target_pos)
+    #os.system('cls')
     return [COUNTER, EXPANSIONS]
     
 def adaptive_determine_path(agent_state, target_state, order, open_list, closed_list, g_tie_breaker, expansions, heuristic_grid):
@@ -460,32 +476,51 @@ def print_list(list):
     for (f, o, state) in list:
         print(state.to_string() )
 
-def print_grid(grid, agent_state, target_pos):
-    os.system('cls')
+def print_grid(grid, agent_state, target_pos, FIRST_PRINT):
 
-    print("Size:[" + str(GRID_SIZE) + ", " + str(GRID_SIZE) + "]")
-    print("Agent: " + str(agent_state.pos) + ", Target: " + str(target_pos) )
+    output = "Size:[" + str(GRID_SIZE) + ", " + str(GRID_SIZE) + "]\n"
+    output += "Agent: " + str(agent_state.pos) + ", Target: " + str(target_pos) + "\n"
 
     for column in range(GRID_SIZE):
         if 3 - len(str(column)) == 2:
-            print(" " + str(column), end=" ")
+            output += " " + str(column) + " "
+            #print(" " + str(column), end=" ")
         elif 3 - len(str(column)) == 1:
-            print(str(column), end=" ")
-        else: print(str(column), end="")
-    print()
+            output += str(column) + " "
+            #print(str(column), end=" ")
+        else: 
+            output += str(column)
+            #print(str(column), end="")
+
+   
+    output += "\n"
+    #print()
 
     for y in range(GRID_SIZE):
         for x in range(GRID_SIZE):
             cell = grid[y][x]
             if cell == 1: 
-                print(f"{Fore.BLACK}{Back.BLACK}[ ]" + f"{Style.RESET_ALL}", end="")
-            elif cell == 'A' or cell == 'T':
-                print(f"{Fore.BLACK}{Back.WHITE}[" + str(cell) + "]" + f"{Style.RESET_ALL}", end="")
+                output += f"{Fore.BLACK}{Back.BLACK}[ ]" + f"{Style.RESET_ALL}"
+                #print(f"{Fore.BLACK}{Back.BLACK}[ ]" + f"{Style.RESET_ALL}", end="")
+            elif cell == 'A':
+                output += f"{Fore.WHITE}{Back.RED}[" + str(cell) + "]" + f"{Style.RESET_ALL}"
+                #print(f"{Fore.WHITE}{Back.RED}[" + str(cell) + "]" + f"{Style.RESET_ALL}", end="")
+            elif cell == 'T':
+                output += f"{Fore.WHITE}{Back.BLUE}[" + str(cell) + "]" + f"{Style.RESET_ALL}"
+                #print(f"{Fore.WHITE}{Back.RED}[" + str(cell) + "]" + f"{Style.RESET_ALL}", end="")
             elif cell == '*':
-                print(f"{Fore.BLACK}{Back.WHITE}[" + str(cell) + "]" + f"{Style.RESET_ALL}", end="")
+                output += f"{Fore.WHITE}{Back.WHITE}[" + f"{Fore.RED}{Back.WHITE}" + str(cell) + f"{Fore.WHITE}{Back.WHITE}]" + f"{Style.RESET_ALL}"
+                #print(f"{Fore.BLACK}{Back.WHITE}[" + str(cell) + "]" + f"{Style.RESET_ALL}", end="")
             else:
-                print(f"{Fore.WHITE}{Back.WHITE}[ ]" + f"{Style.RESET_ALL}", end="")
-        print(" " + str(y))
+                output += f"{Fore.WHITE}{Back.WHITE}[ ]" + f"{Style.RESET_ALL}"
+        output += " " + str(y) + "\n"
+        #print(" " + str(y))
+
+    if(not FIRST_PRINT):
+        sys.stdout.write("\033[F"*(GRID_SIZE + 3))
+
+    print(output, end="")    
+    return False
 
 def get_path_grid(path_grid, grid, agent_pos, target_pos):
     x, y = agent_pos
@@ -507,14 +542,10 @@ def get_path_grid(path_grid, grid, agent_pos, target_pos):
             if cell == 1: 
                 print(f"{Fore.BLACK}{Back.BLACK}[ ]" + f"{Style.RESET_ALL}", end="")
             elif cell == 'A' or cell == 'T':
-                print(f"{Fore.BLACK}{Back.WHITE}[" + str(cell) + "]" + f"{Style.RESET_ALL}", end="")
+                print(f"{Fore.WHITE}{Back.RED}[" + str(cell) + "]" + f"{Style.RESET_ALL}", end="")
             elif cell == '*':
                 print(f"{Fore.BLACK}{Back.WHITE} " + str(cell) + " " + f"{Style.RESET_ALL}", end="")
             else:
                 print(f"{Fore.WHITE}{Back.WHITE}[ ]" + f"{Style.RESET_ALL}", end="")
         print(" " + str(y))
     print()
-    
-    
-            
-     
