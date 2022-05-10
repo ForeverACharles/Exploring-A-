@@ -1,7 +1,7 @@
 This is a repo condensing my contributions to https://github.com/Nicholas-Schenk/AI_HW-1 into an easier-to-digest format. 
 
 # Exploring A* Search Algorithm
-A* is a search algorithm used for path-finding.
+A* is a search algorithm that makes use of heuristics to find some shortest path.
 
 https://user-images.githubusercontent.com/50348516/166405680-888425d5-7b10-4556-b2be-98f0a7ed4789.mp4
 
