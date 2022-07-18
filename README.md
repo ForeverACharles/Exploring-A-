@@ -1,5 +1,5 @@
 
-This is a repo condensing my contributions to https://github.com/Nicholas-Schenk/AI_HW-1 into an easier-to-digest format. 
+This is a repo condensing my contributions to [this repo](https://github.com/Nicholas-Schenk/AI_HW-1) into an easier-to-digest format. 
 
 # Exploring A* Search Algorithm
 ### A* is a search algorithm that makes use of heuristics to find some shortest path.
